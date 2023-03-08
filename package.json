@@ -1,6 +1,6 @@
 {
     "name": "css-module-wrapper",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "Webpack loader to silently wrap CSS modules",
     "main": "index.js",
     "keywords": [],

@@ -3,6 +3,6 @@ declare module "loader" {
     interface LoaderOptions {
         classNames?: boolean;
     }
-    const Loader: RawLoaderDefinitionFunction<LoaderOptions>;
-    export default Loader;
+    const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions>;
+    export default WebpackCssModuleWrapper;
 }
