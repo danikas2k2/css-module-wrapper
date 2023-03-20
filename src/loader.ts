@@ -12,11 +12,11 @@ const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions> =
         let result = content
             .toString()
             .replace(
-                /^(\s*)import\s+['"]([^'"]+\.(?:c|pc|le|s[ac])ss)['"]\s*;/gm,
-                (found, spaces, path) => {
+                /\bimport\s+('[^']+\.(?:c|pc|le|s[ac])ss'|"[^"]+\.(?:c|pc|le|s[ac])ss")\s*;/gm,
+                (found, path) => {
                     const name = path.replace(/\W/g, '_');
                     bindStyles.push(name);
-                    return `${spaces}import ${name} from '${path}';`;
+                    return `import ${name} from ${path};`;
                 }
             );
         if (!bindStyles.length) {
@@ -65,7 +65,7 @@ const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions> =
 
             fnClassNames = '__classNames';
             fnClassNamesBind = `${fnClassNames}__bind`;
-            const importBind = `\nimport ${fnClassNamesBind} from 'classnames/bind';`;
+            const importBind = ` import ${fnClassNamesBind} from 'classnames/bind';`;
             result =
                 result.slice(0, cursor) + importBind + result.slice(cursor);
             cursor += importBind.length;
@@ -74,21 +74,20 @@ const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions> =
         const binding =
             bindStyles.length === 1
                 ? bindStyles[0]
-                : `{\n${bindStyles.map((s) => `    ...${s},\n`).join('')}}`;
+                : `{ ${bindStyles.map((s) => `...${s}`).join(', ')} }`;
         result =
             result.slice(0, cursor) +
-            `\n\nconst ${fnClassNames} = ${fnClassNamesBind}.bind(${binding});` +
+            ` const ${fnClassNames} = ${fnClassNamesBind}.bind(${binding});` +
             result.slice(cursor);
 
-        return Buffer.from(
-            result.replace(
-                /\bclassName\s*=\s*(['"])([^'"]+)\1/g,
-                (found, quote, classNames) => {
-                    return `className={${fnClassNames}('${classNames
-                        .split(/\s+/)
-                        .join(`', '`)}')}`;
-                }
-            )
+        result = result.replace(
+            /\bclassName\s*=\s*(['"])([^'"]+)\1/g,
+            (found, quote, classNames) => {
+                return `className={${fnClassNames}('${classNames
+                    .split(/\s+/)
+                    .join(`', '`)}')}`;
+            }
         );
+        return Buffer.from(result);
     };
 export default WebpackCssModuleWrapper;
