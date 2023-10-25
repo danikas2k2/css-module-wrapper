@@ -7,7 +7,6 @@ export const DIR = './test';
 const vol = new Volume();
 vol.fromJSON(
     {
-        'test.tsx': '',
         'Input.css': '',
         'Button.css': '',
         'ButtonGroup.css': '',

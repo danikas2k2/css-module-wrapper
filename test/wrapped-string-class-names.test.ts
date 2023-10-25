@@ -1,46 +1,10 @@
-it.skip('wrapped string class names', () => {
-    /*expect(
-        inlineCssModules
-            .call(
-                context,
-                Buffer.from(`
-import React from 'react';
-import classNames from 'classnames';
-import './Button.css';
+import path from 'path';
+import { compile } from './utils/compile';
+import { DIR } from './utils/ufs';
 
-export function Button = (
-{
-disabled,
-...props
-}) => (
-<button
-ref={useRef()}
-className={'Button color-neutral variant-solid size-small spacing-default'}
-disabled={disabled}
-aria-disabled={disabled}
-{...props}
-/>
-);`)
-            )
-            ?.toString()
-    ).toBe(`
-import React from 'react';
-import classNames__bind from 'classnames/bind';
-import __Button_css from './Button.css';
-
-const classNames = classNames__bind.bind(__Button_css);
-
-export function Button = (
-{
-disabled,
-...props
-}) => (
-<button
-ref={useRef()}
-className={classNames('Button', 'color-neutral', 'variant-solid', 'size-small', 'spacing-default')}
-disabled={disabled}
-aria-disabled={disabled}
-{...props}
-/>
-);`);*/
+it.skip('wrapped string class names', async () => {
+    const [output] = await compile({
+        entry: path.resolve(DIR, 'wrapped-string-class-names.tsx'),
+    });
+    expect(output).toMatchSnapshot();
 });

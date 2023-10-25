@@ -42,7 +42,7 @@ module.exports = {
       {
         test: /\.[jt]sx?$/,
         use: [
-          'ts-loader',
+          'esbuild-loader',
           'css-module-wrapper'
         ],
       },

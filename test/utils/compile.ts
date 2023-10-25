@@ -16,9 +16,16 @@ export async function compile(
         ufs
     );
     const json = stats?.toJson({ source: true });
-    return (
-        json?.modules
-            ?.filter((m) => m?.name?.endsWith('.tsx'))
-            ?.map((m) => m!.source!.toString()) ?? []
-    );
+    return getModuleSources(json?.modules);
+}
+
+function getModuleSources(modules?: StatsModule[]) {
+    return modules
+        ?.filter((m) => m?.name?.includes('.tsx'))
+        ?.flatMap((m) => {
+            if (m?.source) {
+                return m?.source?.toString();
+            }
+            return getModuleSources(m?.modules);
+        });
 }

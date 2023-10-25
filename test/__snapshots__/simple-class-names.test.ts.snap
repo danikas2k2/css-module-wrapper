@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simple class names 1`] = `
+""use strict";
+import { jsx } from "react/jsx-runtime";
+import ___Button_css_ from "./Button.css";
+import __classNames__bind from "classnames/bind.js";
+const __classNames = __classNames__bind.bind(___Button_css_);
+export function Button({ disabled, ...props }) {
+  return /* @__PURE__ */ jsx(
+    "button",
+    {
+      className: __classNames("Button", "color-neutral", "variant-solid", "size-small", "spacing-default"),
+      disabled,
+      "aria-disabled": disabled,
+      ...props
+    }
+  );
+}
+"
+`;

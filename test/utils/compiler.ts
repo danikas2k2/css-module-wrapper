@@ -27,25 +27,31 @@ export default async (
                         rules: [
                             {
                                 test: /\.css/,
+                                exclude: /node_modules/,
                                 use: [
                                     'style-loader',
                                     {
                                         loader: 'css-loader',
                                         options: {
                                             modules: {
-                                                // auto: (path: string) => !path.includes('node_modules'),
                                                 mode: 'local',
-                                                localIdentName: '[path][name]__[local]',
+                                                localIdentName:
+                                                    '[path][name]__[local]',
                                             },
                                         },
-                                    }
-                                ]
+                                    },
+                                ],
                             },
                             {
                                 test: /\.[jt]sx?$/,
                                 exclude: /node_modules/,
                                 use: [
-                                    'ts-loader',
+                                    {
+                                        loader: 'esbuild-loader',
+                                        options: {
+                                            target: 'esnext',
+                                        },
+                                    },
                                     {
                                         loader: path.resolve(
                                             __dirname,

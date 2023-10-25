@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`has no css imports 1`] = `
+""use strict";
+import { jsx } from "react/jsx-runtime";
+import classNames from "classnames";
+export function Button({
+  color = "neutral",
+  variant = "solid",
+  size = "small",
+  spacing = "default",
+  disabled,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx(
+    "button",
+    {
+      className: classNames(
+        "Button",
+        \`color-\${color}\`,
+        \`variant-\${variant}\`,
+        \`size-\${size}\`,
+        \`spacing-\${spacing}\`
+      ),
+      disabled,
+      "aria-disabled": disabled,
+      ...props
+    }
+  );
+}
+"
+`;

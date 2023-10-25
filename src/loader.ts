@@ -32,7 +32,7 @@ const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions> =
                 (found, name) => {
                     fnClassNames = name;
                     fnClassNamesBind = `${fnClassNames}__bind`;
-                    return `import ${fnClassNamesBind} from 'classnames/bind';`;
+                    return `import ${fnClassNamesBind} from 'classnames/bind.js';`;
                 }
             );
         }
@@ -65,7 +65,7 @@ const WebpackCssModuleWrapper: RawLoaderDefinitionFunction<LoaderOptions> =
 
             fnClassNames = '__classNames';
             fnClassNamesBind = `${fnClassNames}__bind`;
-            const importBind = ` import ${fnClassNamesBind} from 'classnames/bind';`;
+            const importBind = ` import ${fnClassNamesBind} from 'classnames/bind.js';`;
             result =
                 result.slice(0, cursor) + importBind + result.slice(cursor);
             cursor += importBind.length;
